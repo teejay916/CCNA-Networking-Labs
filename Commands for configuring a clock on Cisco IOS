@@ -1,0 +1,6 @@
+Mode Transition & Clock Configuration
+Switch> enable
+Switch# configure terminal
+Switch(config)# clock set 15:00:00 31 Jan 2035
+Switch(config)# exit
+Switch# show clock
