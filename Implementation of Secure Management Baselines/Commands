@@ -7,3 +7,23 @@ Switch# show running-config
 Switch# show startup-config
 ! Result: "startup-config is not present" 
 ! Reason: No configuration has been saved to NVRAM yet.
+
+! --- Initial Basic Configuration ---
+S1(config)# hostname S1                       ! Assign unique device name
+
+! --- Line & Access Security ---
+S1(config)# line console 0                    ! Access physical console port
+S1(config-line)# password letmein             ! Set plain-text console password
+S1(config-line)# login                        ! Enable password prompt at login
+S1(config-line)# exit
+
+! --- Privilege Level Security ---
+S1(config)# enable password c1$c0             ! Set weak enable password
+S1(config)# enable secret itsasecret          ! Set strong MD5 encrypted password
+
+! --- Global Hardening & Banners ---
+S1(config)# service password-encryption       ! Encrypt all plain-text passwords
+S1(config)# banner motd #Authorized Access Only!# ! Legal notice for login screen
+
+! --- Final Save ---
+S1# copy running-config startup-config        ! Save RAM to NVRAM to prevent data loss
