@@ -1,0 +1,9 @@
+! --- Hardware Verification ---
+Switch# show running-config
+! Verified 24 FastEthernet ports and 2 Gigabit ports
+! Verified 16 Virtual Terminal (VTY) lines (0-15) 
+
+! --- NVRAM Check ---
+Switch# show startup-config
+! Result: "startup-config is not present" 
+! Reason: No configuration has been saved to NVRAM yet.
