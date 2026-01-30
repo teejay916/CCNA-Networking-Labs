@@ -1,0 +1,30 @@
+Basic Security & Identity (Both Switches)
+Switch> enable                                 ! Enter Privileged EXEC mode
+Switch# configure terminal                     ! Enter Global Configuration mode
+S1(config)# hostname S1                        ! Sets the switch name
+S1(config)# line console 0                     ! Accesses the physical console port
+S1(config-line)# password cisco                ! Sets the login password
+S1(config-line)# login                         ! Enables password checking
+S1(config-line)# exit
+S1(config)# enable secret class                ! Sets the encrypted privileged password
+S1(config)# banner motd "Authorized access only. Violators will be prosecuted to the full extent of the law." ! Security warning
+
+Switch Management Interface (The IP Stuff)
+! --- On Switch S1 ---
+S1(config)# interface vlan 1                   ! Enter the virtual management interface
+S1(config-if)# ip address 192.168.1.253 255.255.255.0 ! Assign IP and Subnet mask
+S1(config-if)# no shutdown                     ! Turn the interface ON
+
+! --- On Switch S2 ---
+S2(config)# interface vlan 1
+S2(config-if)# ip address 192.168.1.254 255.255.255.0
+S2(config-if)# no shutdown
+
+Verification & Saving
+S1# show ip interface brief                    ! Check if Vlan 1 is "up/up"
+S1# show running-config                        ! View current configuration in RAM
+S1# copy running-config startup-config         ! Save configuration to NVRAM (permanent)
+
+! --- Connectivity Tests ---
+PC> ping 192.168.1.253                         ! Ping S1 from PC
+PC> ping 192.168.1.254                         ! Ping S2 from PC
