@@ -1,0 +1,38 @@
+# Enter global configuration mode
+enable
+configure terminal
+
+# Set the hostname
+hostname Room-145
+
+# Configure encrypted privileged access
+enable secret 6EBUp
+
+# Secure the console port
+line console 0
+password xAw6k
+login
+exit
+
+# Encrypt all plain-text passwords in the config file
+service password-encryption
+
+# Configure the legal notification banner
+banner motd "Unauthorized access is strictly prohibited."
+
+
+
+# Configure the virtual management interface
+interface vlan 1
+ip address 128.107.20.10 255.255.255.0
+no shutdown
+exit
+
+# Save the configuration to NVRAM
+copy running-config startup-config
+
+show ip interface brief: Used to verify that Vlan1 is "up/up" and has the correct IP.
+
+show running-config: Used to verify that service password-encryption is active.
+
+show version: Used to identify the IOS software version and system hardware.
